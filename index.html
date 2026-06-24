@@ -1,0 +1,23 @@
+<!doctype html>
+<html><head><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Discipline Tracker</title>
+<link rel="manifest" href="manifest.json">
+<style>
+body{font-family:Arial;padding:20px;text-align:center}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;max-width:420px;margin:auto}
+.day{border:1px solid #ccc;padding:12px;border-radius:8px}
+.done{background:#d4edda}
+</style></head><body>
+<h2>Discipline Tracker</h2><p>Tap days to mark complete.</p>
+<div class="grid" id="g"></div>
+<script>
+const g=document.getElementById('g');
+for(let i=1;i<=31;i++){
+ let d=document.createElement('div');
+ d.className='day'; d.textContent=i;
+ if(localStorage.getItem('d'+i)=='1') d.classList.add('done');
+ d.onclick=()=>{d.classList.toggle('done'); localStorage.setItem('d'+i,d.classList.contains('done')?'1':'0');};
+ g.appendChild(d);
+}
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js');}
+</script></body></html>
